@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f2f2f0;
+  --foreground: #171717;
+  --font-satoshi: "Satoshi", "Helvetica Neue", Arial, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-satoshi);
+  --font-nohemi: var(--font-nohemi);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-satoshi);
+  cursor: url("/cursors/cursor.svg") 9 9, auto;
+}
+
+a:hover,
+button:hover,
+.case-study-card:hover {
+  cursor: url("/cursors/cursor-hover.svg") 9 11, pointer;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+/* Transparency-style checker used for image slots that don't have real
+   content yet (Creations albums) — swapped out automatically once a real
+   `src` is supplied, this class is just a visual "empty" cue. */
+.placeholder-checker {
+  background-color: #fafafa;
+  background-image:
+    linear-gradient(45deg, #e5e5e5 25%, transparent 25%),
+    linear-gradient(-45deg, #e5e5e5 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e5e5e5 75%),
+    linear-gradient(-45deg, transparent 75%, #e5e5e5 75%);
+  background-size: 12px 12px;
+  background-position:
+    0 0,
+    0 6px,
+    6px -6px,
+    -6px 0;
+}
+
+.tilt-card {
+  transform: rotate(var(--rot-rest, 0deg));
+  transition: transform 250ms ease-out;
+}
+
+.tilt-card:hover {
+  transform: rotate(var(--rot-hover, 0deg));
+}
+
+/* Album expansion now mounts directly under whichever grid row was clicked
+   (its position shifts with column count), so it gets a simple fade/slide-in
+   on mount rather than the old fixed-position height transition. */
+@keyframes expand-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.expand-in {
+  animation: expand-in 250ms ease-out;
+}
