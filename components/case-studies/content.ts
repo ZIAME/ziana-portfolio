@@ -20,7 +20,7 @@ const ALL_CASE_STUDIES: CaseStudy[] = [
       "A two-sided C2C marketplace, 77 screens across iOS and Android in 8 months, including a 9-step→1-step reduction in a core user flow.",
     image: "/case-studies/peepdo.png",
     imageAlt: "Peepdo app screens",
-    href: "https://www.behance.net/embed/project/253715509?ilo0=1",
+    href: "https://www.behance.net/gallery/253715509/Peepdo-UX-Case-Study",
   },
   {
     id: "asar-care",

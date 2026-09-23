@@ -9,7 +9,7 @@ export function CaseStudyCard({ tags, role, title, description, image, imageAlt,
       rel="noopener noreferrer"
       className="case-study-card group relative block rounded-[28px] p-4"
     >
-      <div className="absolute inset-0 -z-10 rounded-[28px] bg-white opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+      <div className="absolute inset-0 -z-10 rounded-[28px] bg-white opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 max-md:opacity-100" />
       <HandDrawnBorder />
 
       <div className="mb-4 flex items-center justify-between gap-3">

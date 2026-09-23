@@ -3,7 +3,7 @@ export function HandDrawnBorder() {
     <svg
       viewBox="0 0 469 357"
       preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-0 h-full w-full text-neutral-900 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100"
+      className="pointer-events-none absolute inset-0 h-full w-full text-neutral-900 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 max-md:opacity-100"
       aria-hidden="true"
     >
       <path

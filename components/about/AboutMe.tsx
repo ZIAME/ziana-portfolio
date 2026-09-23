@@ -168,7 +168,7 @@ export function AboutMe() {
             }}
           >
             <div className="flex flex-col gap-8 sm:flex-row sm:gap-12">
-              <div className="relative w-40 shrink-0 rotate-2 self-start sm:w-48">
+              <div className="relative w-40 shrink-0 rotate-2 self-center sm:w-48 sm:self-start">
                 <div className="aspect-[4/5] w-full overflow-hidden rounded-xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.12)]">
                   {/* eslint-disable-next-line @next/next/no-img-element -- replaceable personal photo, no responsive variants needed */}
                   <img src={PHOTO_SRC} alt="Ziana Saif" className="h-full w-full object-cover" />

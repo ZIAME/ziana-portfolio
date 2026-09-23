@@ -20,8 +20,12 @@ export function ScrollPrompt() {
       style={{ opacity: visible ? 1 : 0 }}
       aria-hidden={!visible}
     >
-      <span aria-hidden="true">↓</span> Scroll down to see my work{" "}
-      <span aria-hidden="true">↓</span>
+      {/* Phones get the tilt hint instead — the hero reacts to gyro there. */}
+      <span className="sm:hidden">Tilt your phone to see magic</span>
+      <span className="hidden sm:inline">
+        <span aria-hidden="true">↓</span> Scroll down to see my work{" "}
+        <span aria-hidden="true">↓</span>
+      </span>
     </p>
   );
 }
