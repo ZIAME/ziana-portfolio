@@ -1,9 +1,14 @@
 import type { CaseStudy } from "./content";
 import { HandDrawnBorder } from "./HandDrawnBorder";
 
-export function CaseStudyCard({ tags, role, title, description, image, imageAlt }: CaseStudy) {
+export function CaseStudyCard({ tags, role, title, description, image, imageAlt, href }: CaseStudy) {
   return (
-    <div className="case-study-card group relative rounded-[28px] p-4">
+    <a
+      href={href ?? undefined}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="case-study-card group relative block rounded-[28px] p-4"
+    >
       <div className="absolute inset-0 -z-10 rounded-[28px] bg-white opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
       <HandDrawnBorder />
 
@@ -34,6 +39,6 @@ export function CaseStudyCard({ tags, role, title, description, image, imageAlt 
           </div>
         )}
       </div>
-    </div>
+    </a>
   );
 }

@@ -2,9 +2,10 @@
 
 import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import type { AlbumItem } from "./content";
+import { ImageLightbox } from "./ImageLightbox";
+import { SquareCardFrame } from "./SquareCardFrame";
 
 const VISIBLE_ROWS = 3;
-import { SquareCardFrame } from "./SquareCardFrame";
 
 // Small fixed rotations for the thumbnail grid — reusing CARD_TILTS at full
 // strength would look too busy at this size, so these stay subtler and just
@@ -39,6 +40,7 @@ function ToolPill({ name, color, icon }: { name: string; color: string; icon?: s
 export function AlbumExpansion({ album }: { album: AlbumItem }) {
   const gridRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState<number>();
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // Cap the scroll area at exactly three rows (a 3x3 view). Measured rather
   // than computed in CSS because a desktop scrollbar steals width from the
@@ -89,10 +91,14 @@ export function AlbumExpansion({ album }: { album: AlbumItem }) {
           <div className="overflow-y-auto" style={{ maxHeight }}>
             <div ref={gridRef} className="grid grid-cols-3 gap-1.5 p-0.5 sm:gap-3">
               {album.images.map((image, i) => (
-                <div
+                <button
                   key={i}
+                  type="button"
+                  onClick={() => image.src && setOpenIndex(i)}
+                  disabled={!image.src}
+                  aria-label={`Open ${image.alt}`}
                   style={{ "--rot-rest": `${THUMB_TILTS[i % THUMB_TILTS.length]}deg` } as CSSProperties}
-                  className="tilt-card"
+                  className="tilt-card block w-full"
                 >
                   <SquareCardFrame>
                     {image.src ? (
@@ -102,12 +108,21 @@ export function AlbumExpansion({ album }: { album: AlbumItem }) {
                       <div className="placeholder-checker h-full w-full" />
                     )}
                   </SquareCardFrame>
-                </div>
+                </button>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {openIndex !== null && (
+        <ImageLightbox
+          images={album.images}
+          index={openIndex}
+          onChange={setOpenIndex}
+          onClose={() => setOpenIndex(null)}
+        />
+      )}
     </div>
   );
 }

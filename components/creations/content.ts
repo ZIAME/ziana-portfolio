@@ -145,7 +145,6 @@ export const CREATIONS: CreationItem[] = [
     id: "webtoon",
     title: "Webtoon — Coin & Unlock Flow",
     cover: "/creations/webtoon-cover.webp",
-    // TODO: real destination URL
-    href: "#",
+    href: "https://www.behance.net/gallery/254905227/Webtoon-User-flow-UX-Audit",
   },
 ];
