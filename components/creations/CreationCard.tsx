@@ -1,4 +1,7 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { motion } from "motion/react";
+import { SPRING } from "@/components/motion/Reveal";
 import type { CreationItem } from "./content";
 import { SquareCardFrame } from "./SquareCardFrame";
 
@@ -26,10 +29,15 @@ type CreationCardProps = {
 };
 
 export function CreationCard({ item, rotation, isExpanded, onToggle }: CreationCardProps) {
-  const style = {
-    "--rot-rest": `${rotation.rest}deg`,
-    "--rot-hover": `${rotation.hover}deg`,
-  } as CSSProperties;
+  // Each card rests at its own tilt, like photos scattered on a table, and
+  // springs further on hover.
+  const tilt = {
+    initial: false as const,
+    animate: { rotate: rotation.rest, scale: 1 },
+    whileHover: { rotate: rotation.hover, scale: 1.04 },
+    whileTap: { scale: 0.96 },
+    transition: SPRING,
+  };
 
   const artwork = item.cover ? (
     // eslint-disable-next-line @next/next/no-img-element -- fixed-size creation cover, no responsive variants needed
@@ -41,12 +49,12 @@ export function CreationCard({ item, rotation, isExpanded, onToggle }: CreationC
   // The link card has no caption, so its artwork fills the frame edge to edge.
   if (item.type === "link") {
     return (
-      <a
+      <motion.a
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        style={style}
-        className="tilt-card mx-auto block w-full max-w-[150px] sm:max-w-[192px]"
+        {...tilt}
+        className="mx-auto block w-full max-w-[150px] sm:max-w-[192px]"
       >
         <SquareCardFrame>
           <div className="relative h-full w-full">
@@ -54,7 +62,7 @@ export function CreationCard({ item, rotation, isExpanded, onToggle }: CreationC
             <InfoIcon />
           </div>
         </SquareCardFrame>
-      </a>
+      </motion.a>
     );
   }
 
@@ -62,12 +70,12 @@ export function CreationCard({ item, rotation, isExpanded, onToggle }: CreationC
   // frame below it. Percentage padding resolves against the card's width, so
   // these proportions hold at every card size.
   return (
-    <button
+    <motion.button
       type="button"
       onClick={onToggle}
       aria-expanded={isExpanded}
-      style={style}
-      className="tilt-card mx-auto block w-full max-w-[150px] sm:max-w-[192px]"
+      {...tilt}
+      className="mx-auto block w-full max-w-[150px] sm:max-w-[192px]"
     >
       <SquareCardFrame>
         <div className="flex h-full w-full flex-col px-[10%] pt-[8%] pb-[5%]">
@@ -77,6 +85,6 @@ export function CreationCard({ item, rotation, isExpanded, onToggle }: CreationC
           </span>
         </div>
       </SquareCardFrame>
-    </button>
+    </motion.button>
   );
 }

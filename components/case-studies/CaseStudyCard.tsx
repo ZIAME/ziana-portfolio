@@ -1,12 +1,19 @@
+"use client";
+
+import { motion } from "motion/react";
+import { SPRING } from "@/components/motion/Reveal";
 import type { CaseStudy } from "./content";
 import { HandDrawnBorder } from "./HandDrawnBorder";
 
 export function CaseStudyCard({ tags, role, title, description, image, imageAlt, href }: CaseStudy) {
   return (
-    <a
+    <motion.a
       href={href ?? undefined}
       target="_blank"
       rel="noopener noreferrer"
+      whileHover={{ y: -6 }}
+      whileTap={{ scale: 0.98 }}
+      transition={SPRING}
       className="case-study-card group relative block rounded-[28px] p-4"
     >
       <div className="absolute inset-0 -z-10 rounded-[28px] bg-white opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 max-md:opacity-100" />
@@ -39,6 +46,6 @@ export function CaseStudyCard({ tags, role, title, description, image, imageAlt,
           </div>
         )}
       </div>
-    </a>
+    </motion.a>
   );
 }

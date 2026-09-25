@@ -1,6 +1,8 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { SPRING } from "@/components/motion/Reveal";
 import type { AlbumItem } from "./content";
 import { ImageLightbox } from "./ImageLightbox";
 import { SquareCardFrame } from "./SquareCardFrame";
@@ -9,7 +11,7 @@ const VISIBLE_ROWS = 3;
 
 // Small fixed rotations for the thumbnail grid — reusing CARD_TILTS at full
 // strength would look too busy at this size, so these stay subtler and just
-// cycle rather than needing their own hover state.
+// cycle; hovering straightens a thumbnail out.
 const THUMB_TILTS = [-3, 2, -2, 3, -4, 2, -3, 4, -2];
 
 function ToolPill({ name, color, icon }: { name: string; color: string; icon?: string }) {
@@ -91,14 +93,20 @@ export function AlbumExpansion({ album }: { album: AlbumItem }) {
           <div className="overflow-y-auto" style={{ maxHeight }}>
             <div ref={gridRef} className="grid grid-cols-3 gap-1.5 p-0.5 sm:gap-3">
               {album.images.map((image, i) => (
-                <button
+                <motion.button
                   key={i}
                   type="button"
                   onClick={() => image.src && setOpenIndex(i)}
                   disabled={!image.src}
                   aria-label={`Open ${image.alt}`}
-                  style={{ "--rot-rest": `${THUMB_TILTS[i % THUMB_TILTS.length]}deg` } as CSSProperties}
-                  className="tilt-card block w-full"
+                  // Thumbnails deal in one after another; the stagger is
+                  // capped so long albums don't keep the last ones waiting.
+                  initial={{ opacity: 0, scale: 0.85, rotate: 0 }}
+                  animate={{ opacity: 1, scale: 1, rotate: THUMB_TILTS[i % THUMB_TILTS.length] }}
+                  whileHover={{ scale: 1.05, rotate: 0 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ ...SPRING, delay: Math.min(i, 9) * 0.03 }}
+                  className="block w-full"
                 >
                   <SquareCardFrame>
                     {image.src ? (
@@ -107,22 +115,30 @@ export function AlbumExpansion({ album }: { album: AlbumItem }) {
                     ) : (
                       <div className="placeholder-checker h-full w-full" />
                     )}
+                    {image.extras?.length ? (
+                      <span className="absolute right-1 bottom-1 rounded-full bg-neutral-900/75 px-1.5 py-0.5 text-[9px] leading-none font-medium text-white sm:text-[10px]">
+                        +{image.extras.length}
+                      </span>
+                    ) : null}
                   </SquareCardFrame>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
         </div>
       </div>
 
-      {openIndex !== null && (
-        <ImageLightbox
-          images={album.images}
-          index={openIndex}
-          onChange={setOpenIndex}
-          onClose={() => setOpenIndex(null)}
-        />
-      )}
+      <AnimatePresence>
+        {openIndex !== null && (
+          <ImageLightbox
+            key="lightbox"
+            images={album.images}
+            index={openIndex}
+            onChange={setOpenIndex}
+            onClose={() => setOpenIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

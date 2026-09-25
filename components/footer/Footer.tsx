@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/motion/Reveal";
 import { CONTACT_LINKS, RESUME_HREF, newTabProps } from "@/lib/contact";
 
 const ROWS = [
@@ -31,7 +32,7 @@ export function Footer() {
     // the page background.
     <footer className="-mt-12 bg-white pt-12">
       <div className="mx-auto box-content max-w-[1220px] px-3 py-12 sm:px-5 sm:py-16">
-        <div className="grid items-center gap-10 md:grid-cols-[auto_1fr_minmax(0,1.3fr)] md:gap-12">
+        <Reveal className="grid items-center gap-10 md:grid-cols-[auto_1fr_minmax(0,1.3fr)] md:gap-12">
           {/* The source clip is a square frame with blank canvas on either
               side of her (she leans left in some frames, so the safe crop
               was measured across the whole animation, not one still). This
@@ -87,7 +88,7 @@ export function Footer() {
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );

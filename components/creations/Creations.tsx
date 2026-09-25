@@ -1,9 +1,11 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
+import { Reveal, SPRING_SOFT } from "@/components/motion/Reveal";
 import { AlbumExpansion } from "./AlbumExpansion";
 import { CreationCard } from "./CreationCard";
-import { CARD_TILTS, CREATIONS, type CreationItem } from "./content";
+import { CARD_TILTS, CREATIONS, type AlbumItem, type CreationItem } from "./content";
 
 // Matches the grid's own `sm:` breakpoint below — kept in sync so the
 // expansion panel is inserted after the row it was actually opened in,
@@ -24,6 +26,36 @@ function useGridColumns() {
   return columns;
 }
 
+// Springs open from zero height and collapses back on close. The album
+// inside crossfades when switching to another one without closing first.
+function ExpansionShell({ album }: { album: AlbumItem }): ReactNode {
+  return (
+    // The negative top margin cancels the grid's row gap and the same space is
+    // added back as padding inside, so the gap grows and shrinks with the
+    // panel instead of popping in/out around it.
+    <motion.div
+      className="col-span-full -mt-10 overflow-hidden sm:-mt-12"
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ height: SPRING_SOFT, opacity: { duration: 0.25 } }}
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={album.id}
+          className="pt-10 sm:pt-12"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <AlbumExpansion album={album} />
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export function Creations() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const columns = useGridColumns();
@@ -37,13 +69,12 @@ export function Creations() {
   // view. Desktop: it opens below the whole grid.
   const opensUnderRow = columns === 2;
   const expandedAlbum = CREATIONS.find(
-    (item): item is Extract<CreationItem, { type: "album" }> =>
-      item.type === "album" && item.id === expandedId,
+    (item): item is AlbumItem => item.type === "album" && item.id === expandedId,
   );
 
   return (
     <section className="px-6 py-16 sm:px-10 sm:py-24">
-      <div className="mx-auto max-w-[960px]">
+      <Reveal className="mx-auto max-w-[960px]">
         {/* The panel bleeds out by exactly its own horizontal padding, so the
             heading inside it still lines up with every other section's
             heading (all of which sit flush on the 960px container edge). */}
@@ -77,22 +108,20 @@ export function Creations() {
                       }
                     />
                   ))}
-                  {showHere && (
-                    <div className="expand-in col-span-full">
-                      <AlbumExpansion album={expandedAlbum} />
-                    </div>
-                  )}
+                  <AnimatePresence initial={false}>
+                    {showHere && <ExpansionShell key={`row-${rowIndex}`} album={expandedAlbum} />}
+                  </AnimatePresence>
                 </Fragment>
               );
             })}
-            {!opensUnderRow && expandedAlbum && (
-              <div key={expandedAlbum.id} className="expand-in col-span-full">
-                <AlbumExpansion album={expandedAlbum} />
-              </div>
-            )}
+            <AnimatePresence initial={false}>
+              {!opensUnderRow && expandedAlbum && (
+                <ExpansionShell key="below-grid" album={expandedAlbum} />
+              )}
+            </AnimatePresence>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -5,10 +5,15 @@ export type Tool = {
   icon?: string;
 };
 
+export type ExtraMedia = { type: "image" | "video"; src: string; alt: string };
+
 export type AlbumImage = {
-  // TODO: swap in the real image once supplied — null renders a placeholder tile
+  // null renders a placeholder tile
   src: string | null;
   alt: string;
+  // Shown below the main image when its popup opens (one scrollable stack),
+  // e.g. close-ups or a process video of the same piece.
+  extras?: ExtraMedia[];
 };
 
 export type AlbumItem = {
@@ -48,7 +53,7 @@ export const CREATIONS: CreationItem[] = [
     title: "Graphics",
     cover: "/creations/graphics/uitopia-poster.jpg",
     // TODO: confirm real subtitle + tool list
-    subtitle: "6+ clients",
+    subtitle: "9 clients",
     tools: [
       { name: "Canva", color: "#00C4CC", icon: "/creations/tools/canva.png" },
       { name: "Photoshop", color: "#31A8FF", icon: "/creations/tools/photoshop.png" },
@@ -68,6 +73,8 @@ export const CREATIONS: CreationItem[] = [
       { src: "/creations/graphics/chai-date.png", alt: "\"Chai Date\" social media poster" },
       { src: "/creations/graphics/neom-samosa.png", alt: "Neom samosa social media poster" },
       { src: "/creations/graphics/anupam-mittal.png", alt: "Anupam Mittal infographic" },
+      { src: "/creations/graphics/todzioo-toy-quiz.webp", alt: "TodZioo \"What toy are you?\" social post" },
+      { src: "/creations/graphics/todzioo-screentime.png", alt: "TodZioo screentime-to-storytime social post" },
     ],
   },
   {
@@ -138,6 +145,29 @@ export const CREATIONS: CreationItem[] = [
       { src: "/creations/art/art-12.jpg", alt: "Happy New Year illustration of a girl with balloons" },
       { src: "/creations/art/art-13.jpg", alt: "Illustration of a girl drawing in front of stylized letters" },
       { src: "/creations/art/art-14.png", alt: "Grid of pixel-art illustrations" },
+      {
+        src: "/creations/art/tae.jpg",
+        alt: "Pencil drawing of a boy with an umbrella on a street",
+        extras: [
+          { type: "image", src: "/creations/art/tae1.jpg", alt: "Close-up of the umbrella and bicycle" },
+          { type: "image", src: "/creations/art/tae2.jpg", alt: "Close-up of the boy and the tree" },
+        ],
+      },
+      {
+        src: "/creations/art/ghalia.jpg",
+        alt: "Digital portrait of a girl on a colourful floral background",
+        extras: [{ type: "video", src: "/creations/art/ghalia.mp4", alt: "Process video of the portrait" }],
+      },
+      {
+        src: "/creations/art/eyeSketch.jpg",
+        alt: "Realistic pencil sketch of an eye",
+        extras: [{ type: "video", src: "/creations/art/eyeSketch.mp4", alt: "Process video of the eye sketch" }],
+      },
+      { src: "/creations/art/V.jpg", alt: "Pencil side profile portrait" },
+      { src: "/creations/art/balletsketch.jpg", alt: "Ink silhouette of a winged dancer" },
+      { src: "/creations/art/strawhang.jpg", alt: "Geometric straw hangings in a doorway" },
+      { src: "/creations/art/eggpaint.jpg", alt: "Tree painted on an egg" },
+      { src: "/creations/art/btsStandee.jpg", alt: "Handmade BTS photo standee" },
     ],
   },
   {
