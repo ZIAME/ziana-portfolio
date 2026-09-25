@@ -147,4 +147,11 @@ export const CREATIONS: CreationItem[] = [
     cover: "/creations/webtoon-cover.webp",
     href: "https://www.behance.net/gallery/254905227/Webtoon-User-flow-UX-Audit",
   },
+  {
+    type: "link",
+    id: "valorant",
+    title: "Valorant — Character Page Redesign",
+    cover: "/creations/valorant-cover.webp",
+    href: "https://www.behance.net/gallery/256252929/Valorant-Character-Page-Redesign",
+  },
 ];
