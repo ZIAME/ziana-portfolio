@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 import { newTabProps } from "@/lib/contact";
 
+// Hand-drawn blob outline (from RoundButton.svg), drawn in a 46x42 viewBox.
+export const SKETCH_BLOB_PATH =
+  "M2.73167 13.8466C4.05635 12.0604 8.51968 4.35544 12.983 2.12775C15.2365 1.53105 27.8957 -0.907022 31.8348 2.12936C39.4267 7.98148 49.8372 22.6469 43.0289 32.2986C41.2905 34.7629 37.6635 38.9173 33.6746 40.3839C32.4195 40.8453 27.1442 41.3955 20.0658 40.909C17.1718 40.7101 15.206 40.8863 12.983 39.7116C5.68515 35.855 -3.57425 22.3492 2.73167 13.8466Z";
+
 type RoundSketchButtonProps = {
   href: string;
   ariaLabel: string;
@@ -27,7 +31,7 @@ export function RoundSketchButton({ href, ariaLabel, className, children }: Roun
         className="pointer-events-none absolute inset-0 h-full w-full select-none"
       >
         <path
-          d="M2.73167 13.8466C4.05635 12.0604 8.51968 4.35544 12.983 2.12775C15.2365 1.53105 27.8957 -0.907022 31.8348 2.12936C39.4267 7.98148 49.8372 22.6469 43.0289 32.2986C41.2905 34.7629 37.6635 38.9173 33.6746 40.3839C32.4195 40.8453 27.1442 41.3955 20.0658 40.909C17.1718 40.7101 15.206 40.8863 12.983 39.7116C5.68515 35.855 -3.57425 22.3492 2.73167 13.8466Z"
+          d={SKETCH_BLOB_PATH}
           stroke="currentColor"
           strokeWidth="1.2734"
           strokeLinecap="round"

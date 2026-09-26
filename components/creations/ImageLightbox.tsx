@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { SPRING } from "@/components/motion/Reveal";
+import { SKETCH_BLOB_PATH } from "@/components/ui/SketchButton";
 import type { AlbumImage } from "./content";
 
 type ImageLightboxProps = {
@@ -22,14 +23,18 @@ function ArrowButton({ direction, onClick }: { direction: "prev" | "next"; onCli
         onClick();
       }}
       aria-label={direction === "prev" ? "Previous image" : "Next image"}
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.92 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       transition={SPRING}
-      className={`absolute top-1/2 z-10 -mt-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-md transition-colors hover:bg-white sm:-mt-6 sm:h-12 sm:w-12 ${
-        direction === "prev" ? "left-3 sm:left-6" : "right-3 sm:right-6"
+      // Same hand-drawn outline as the hero's social buttons, in white.
+      className={`absolute top-1/2 z-10 -mt-[21px] flex h-[42px] w-[46px] items-center justify-center text-white/75 transition-colors hover:text-white sm:-mt-6 sm:h-12 sm:w-[53px] ${
+        direction === "prev" ? "left-2 sm:left-5" : "right-2 sm:right-5"
       }`}
     >
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-4 w-4" aria-hidden="true">
+      <svg viewBox="0 0 46 42" fill="none" aria-hidden="true" className="absolute inset-0 h-full w-full">
+        <path d={SKETCH_BLOB_PATH} stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.8} className="relative h-4 w-4" aria-hidden="true">
         <path
           d={direction === "prev" ? "M10 3 5 8l5 5" : "M6 3l5 5-5 5"}
           strokeLinecap="round"
@@ -94,20 +99,23 @@ export function ImageLightbox({ images, index, onChange, onClose }: ImageLightbo
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/85 p-4 backdrop-blur-sm sm:p-10"
+      // Side padding leaves a dark lane for the arrows so they never sit on
+      // top of the image.
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/85 py-4 backdrop-blur-sm sm:py-10 ${
+        hasMany ? "px-14 sm:px-24" : "px-4 sm:px-10"
+      }`}
     >
       <motion.button
         type="button"
         onClick={onClose}
         aria-label="Close"
-        whileHover={{ scale: 1.08, rotate: 90 }}
-        whileTap={{ scale: 0.92 }}
+        whileHover={{ scale: 1.12, rotate: 90 }}
+        whileTap={{ scale: 0.9 }}
         transition={SPRING}
-        className="absolute top-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-md transition-colors hover:bg-white sm:top-6 sm:right-6"
+        className="absolute top-3 right-3 z-10 flex h-10 w-10 items-center justify-center opacity-80 transition-opacity hover:opacity-100 sm:top-6 sm:right-6"
       >
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-4 w-4" aria-hidden="true">
-          <path d="M4 4l8 8M12 4l-8 8" strokeLinecap="round" />
-        </svg>
+        {/* eslint-disable-next-line @next/next/no-img-element -- hand-drawn icon, fixed size */}
+        <img src="/buttons/cross.svg" alt="" aria-hidden="true" className="h-7 w-7 select-none" />
       </motion.button>
 
       {hasMany && <ArrowButton direction="prev" onClick={() => go(-1)} />}
@@ -149,19 +157,40 @@ export function ImageLightbox({ images, index, onChange, onClose }: ImageLightbo
             )}
           </motion.div>
         ) : (
-          <motion.img
+          <motion.div
             key={image.src}
-            src={image.src}
-            alt={image.alt}
-            onClick={(e) => e.stopPropagation()}
             custom={direction}
             variants={slide}
             initial="enter"
             animate="center"
             exit="exit"
             transition={{ ...SPRING, opacity: { duration: 0.2 } }}
-            className="max-h-full max-w-full rounded-lg object-contain shadow-2xl sm:max-w-[min(100%,1100px)]"
-          />
+            className="flex max-h-full max-w-full flex-col items-center gap-3"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element -- full-size album image, no responsive variants needed */}
+            <img
+              src={image.src}
+              alt={image.alt}
+              onClick={(e) => e.stopPropagation()}
+              className={`max-w-full rounded-lg object-contain shadow-2xl sm:max-w-[min(100%,1100px)] ${
+                image.link ? "max-h-[calc(100dvh-8rem)] sm:max-h-[calc(100dvh-11rem)]" : "max-h-[calc(100dvh-2rem)] sm:max-h-[calc(100dvh-5rem)]"
+              }`}
+            />
+            {image.link && (
+              <a
+                href={image.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-1.5 text-sm text-neutral-900 shadow-md transition-colors hover:bg-white"
+              >
+                {image.link.label}
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4} className="h-3.5 w-3.5" aria-hidden="true">
+                  <path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
 

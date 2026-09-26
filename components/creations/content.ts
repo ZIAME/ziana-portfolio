@@ -14,6 +14,9 @@ export type AlbumImage = {
   // Shown below the main image when its popup opens (one scrollable stack),
   // e.g. close-ups or a process video of the same piece.
   extras?: ExtraMedia[];
+  // Shown as a button under the image in its popup (the thumbnail itself
+  // still just opens the popup).
+  link?: { href: string; label: string };
 };
 
 export type AlbumItem = {
@@ -115,7 +118,14 @@ export const CREATIONS: CreationItem[] = [
     images: [
       { src: "/creations/brandings/kiyo.webp", alt: "Kiyo brand mark" },
       { src: "/creations/brandings/fomo.webp", alt: "FOMO brand logo" },
-      { src: "/creations/brandings/todzioo.webp", alt: "TodZioo brand logo" },
+      {
+        src: "/creations/brandings/todzioo.webp",
+        alt: "TodZioo brand logo",
+        link: {
+          href: "https://www.behance.net/gallery/228590637/Todzioo-Brand-Identity",
+          label: "View on Behance",
+        },
+      },
       { src: "/creations/brandings/butterfly.png", alt: "Pixel butterfly brand mark" },
       { src: "/creations/brandings/v-mark.png", alt: "V. brand mark" },
     ],
