@@ -35,7 +35,7 @@ export const BIOS: Record<BioMode, Bio> = {
   real: {
     paragraphs: [
       "I've been making things with my hands for as long as I can remember, jewellery boxes out of popsicle sticks, windchimes out of straws, whatever scraps were lying around turned into something new. I grew up homeschooled in Saudi Arabia until I was sixteen, which meant a lot of unstructured time to just make, no real curriculum around it, just an instinct I never thought to name.",
-      "When I moved back to India, I didn't know what to do with that instinct. I didn't think of myself as someone who could actually be creative for a living, it felt like a talent other people had, not a path I was allowed to take seriously. So I did the practical thing: premed first, then computer science. Neither one fit.",
+      "When I moved back to India in 2019, I didn't know what to do with that instinct. I didn't think of myself as someone who could actually be creative for a living, it felt like a talent other people had, not a path I was allowed to take seriously. So I did the practical thing: pre-med first, then computer science. Neither one fit.",
       "Product design turned out to be exactly that intersection: structured enough to use the technical, analytical side of my brain, open enough to still let me build and shape things the way I did as a kid with popsicle sticks and straws.",
     ],
     stack: [
