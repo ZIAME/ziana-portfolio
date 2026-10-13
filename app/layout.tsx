@@ -5,6 +5,7 @@ import { nohemi } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zianasaif.vercel.app"),
   title: "Ziana Saif — Product Designer",
   description:
     "I design products end-to-end, from 0→1 builds to fixing what's already broken.",
@@ -12,13 +13,13 @@ export const metadata: Metadata = {
     title: "Ziana Saif — Product Designer",
     description:
       "I design products end-to-end, from 0→1 builds to fixing what's already broken.",
-    url: "https://zianasaif.com",
+    url: "https://zianasaif.vercel.app",
     siteName: "Ziana Saif",
     images: [
       {
         url: "/og-image.png",
         width: 1024,
-        height: 512,
+        height: 537,
         alt: "Ziana Saif — Product Designer",
       },
     ],
