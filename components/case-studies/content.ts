@@ -24,7 +24,7 @@ const ALL_CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: "asar-care",
-    tags: ["Healthcare", "CMS", "Component System"],
+    tags: ["Healthcare", "Design System", "CMS"],
     role: "Solo",
     title: "Asar.care",
     description:

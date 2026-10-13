@@ -8,7 +8,7 @@ export const HEADLINE_WORDS = [
 ];
 
 export const DESCRIPTION =
-  "2+ years designing products, from 0→1 builds to fixing what was already out in the world. I design for the user and for whoever's paying for the product to exist.";
+  "3+ years designing products, from 0→1 builds to fixing what was already out in the world. I design for the user and for whoever's paying for the product to exist.";
 
 // TODO: replace with final services list
 export const SERVICES = [
