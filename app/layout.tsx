@@ -8,6 +8,29 @@ export const metadata: Metadata = {
   title: "Ziana Saif — Product Designer",
   description:
     "I design products end-to-end, from 0→1 builds to fixing what's already broken.",
+  openGraph: {
+    title: "Ziana Saif — Product Designer",
+    description:
+      "I design products end-to-end, from 0→1 builds to fixing what's already broken.",
+    url: "https://zianasaif.com",
+    siteName: "Ziana Saif",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1024,
+        height: 512,
+        alt: "Ziana Saif — Product Designer",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ziana Saif — Product Designer",
+    description:
+      "I design products end-to-end, from 0→1 builds to fixing what's already broken.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

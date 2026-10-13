@@ -31,7 +31,7 @@ const ALL_CASE_STUDIES: CaseStudy[] = [
       "Built to let non-designers publish heavy content without breaking the design, audited against an AI-generated structural baseline.",
     image: "/case-studies/asar-care.webp",
     imageAlt: "Asar.care website on a laptop",
-    href: null,
+    href: "https://www.behance.net/gallery/257043731/UIUX-Case-Study-Medical-Tourism-Platform",
   },
   {
     id: "neom",
