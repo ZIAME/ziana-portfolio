@@ -21,7 +21,7 @@ export const BIO_TABS: { mode: BioMode; label: string }[] = [
 export const BIOS: Record<BioMode, Bio> = {
   professional: {
     paragraphs: [
-      "Product Designer with 2+ years of experience shipping across B2C, B2B, C2C, and fintech. From a startup to a marketing agency to freelance. My largest solo project, Peepdo, took a C2C marketplace from zero to a 77-screen product across iOS and Android in 8 months.",
+      "Product Designer with 3+ years of experience shipping across B2C, B2B, C2C, and fintech. From a startup to a marketing agency to freelance. My largest solo project, Peepdo, took a C2C marketplace from zero to a 77-screen product across iOS and Android in 8 months.",
       "I care about the parts most people skip; the states in between, the copy nobody reviews, the interaction that makes something feel considered instead of assembled.",
     ],
     stack: [
