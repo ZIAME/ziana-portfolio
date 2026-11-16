@@ -199,6 +199,6 @@ export const CREATIONS: CreationItem[] = [
     id: "studma",
     title: "Studma Mail Club — Website Redesign Concept",
     cover: "/creations/studma-cover.webp",
-    href: "https://www.behance.net/gallery/258591571/Studma-Mail-Club-website-redesign-concept",
+    href: "https://claude.ai/artifact/QahYb33eiyv7YP2WfCabDY",
   },
 ];
