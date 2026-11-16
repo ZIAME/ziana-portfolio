@@ -194,4 +194,11 @@ export const CREATIONS: CreationItem[] = [
     cover: "/creations/valorant-cover.webp",
     href: "https://www.behance.net/gallery/256252929/Valorant-Character-Page-Redesign",
   },
+  {
+    type: "link",
+    id: "studma",
+    title: "Studma Mail Club — Website Redesign Concept",
+    cover: "/creations/studma-cover.webp",
+    href: "https://www.behance.net/gallery/258591571/Studma-Mail-Club-website-redesign-concept",
+  },
 ];
